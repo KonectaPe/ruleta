@@ -1,0 +1,140 @@
+<app-navbar></app-navbar>
+<div class="p-2">
+  <div class="container mx-auto grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-6">
+    <div class="rounded-lg">
+      <div>
+        <label class="sr-only" for="message">Message</label>
+        <textarea
+          [disabled]="true"
+          [value]="getParticipants()"
+          class="w-full resize-none rounded-lg border border-red-400 p-3 text-sm"
+          id="message"
+          placeholder="Message"
+          rows="16"
+        >
+        </textarea>
+      </div>
+      <div class="mt-2 flex justify-center">
+        <button
+          (click)="spinRoulette()"
+          [disabled]="isSpinning"
+          class="relative cursor-pointer rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 font-bold text-white shadow-lg transition-all duration-300 before:absolute before:inset-0 before:bg-white before:opacity-0 before:transition-opacity before:duration-300 hover:brightness-110 hover:before:opacity-10 active:brightness-90"
+        >
+          {{ isSpinning ? "Girando..." : "Girar Ruleta" }}
+        </button>
+      </div>
+    </div>
+    <div class="z-10 rounded-lg p-2 lg:col-span-3">
+      <div class="flex flex-col items-center justify-center overflow-hidden">
+        <div class="w-full max-w-md">
+          <div
+            class="mx-auto flex w-full max-w-md flex-col items-center justify-center space-y-8"
+          >
+            <div
+              [style.height.px]="size"
+              [style.width.px]="size"
+              class="relative"
+            >
+              <div
+                #rouletteRef
+                [style.transform]="'rotate(' + rotation + 'deg)'"
+                class="h-full w-full rounded-full shadow-lg"
+              >
+                @for (sector of sectors; track $index) {
+                  <div
+                    [style.transform]="
+                      'rotate(' +
+                      (($index / sectors.length) * 360 +
+                        360 / sectors.length / 2) +
+                      'deg)'
+                    "
+                    class="absolute flex h-full w-full items-center justify-center"
+                  >
+                    <span
+                      [style.font-size.px]="Math.max(size * 0.02, 10)"
+                      [style.transform]="
+                        'translateY(-' + size * 0.42 + 'px) rotate(-90deg)'
+                      "
+                      [style.width.px]="size * 0.2"
+                      class="absolute text-center font-bold whitespace-nowrap text-white"
+                    >
+                      {{ sector.text }}
+                    </span>
+                  </div>
+                }
+              </div>
+              <div
+                [style.z-index]="'10'"
+                class="absolute top-1/2 left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-blue-50 text-4xl lg:h-18 lg:w-18"
+              ></div>
+              <div
+                [style.border-bottom-width.px]="size * 0.06"
+                [style.border-left-width.px]="size * 0.03"
+                [style.border-right-width.px]="size * 0.03"
+                class="absolute top-0 left-1/2 h-0 w-0 -translate-x-1/2 -translate-y-1/2 rotate-180 transform border-t-black border-r-transparent border-l-transparent"
+              ></div>
+            </div>
+          </div>
+          @if (result) {
+            <div
+              class="bg-opacity-75 fixed inset-0 z-12 flex items-center justify-center bg-white opacity-0 transition-opacity duration-300 ease-out"
+              [ngClass]="{
+                'bg-white': result.length > 0,
+                'pointer-events-none opacity-0': result.length == 0,
+              }"
+            >
+              <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-lg">
+                  <h1
+                    class="text-center text-2xl font-bold text-indigo-600 sm:text-3xl"
+                  >
+                    Sistema de sorteo
+                  </h1>
+                  <div
+                    class="mt-6 mb-0 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+                  >
+                    <p class="text-center text-lg font-medium">
+                      ¿Acepta el premio?
+                    </p>
+                    <div>
+                      <label class="sr-only" for="username">Usuario</label>
+                      <div class="relative">
+                        <input
+                          autofocus
+                          class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs"
+                          id="username"
+                          name="username"
+                          placeholder="Ingrese usuario"
+                          required
+                          type="text"
+                          [value]="result"
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-8">
+                      <button
+                        class="block cursor-pointer rounded-md bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+                        type="submit"
+                        (click)="handleAccept()"
+                      >
+                        Sí
+                      </button>
+                      <button
+                        class="block cursor-pointer rounded-md bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+                        type="submit"
+                        (click)="handleCancel()"
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

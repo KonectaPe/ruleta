@@ -1,0 +1,71 @@
+/*button {*/
+/*  background-color: #3b82f6;*/
+/*  color: white;*/
+/*  border-radius: 0.375rem;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*button:disabled {*/
+/*  background-color: #cccccc;*/
+/*  cursor: not-allowed;*/
+/*}*/
+
+/* Bloquear scroll cuando gira */
+.no-scroll {
+  overflow: hidden;
+}
+
+/* Contenedor de la ruleta */
+.ruleta-container {
+  position: relative;
+}
+
+/* Ruleta */
+.ruleta {
+  transition: transform 0.5s ease-out;
+}
+
+/* Animación de giro */
+.spinning {
+  animation: spin 5s ease-out forwards;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(3600deg);
+  }
+}
+
+/* Flecha */
+.flecha {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 30px solid black;
+}
+
+/* Spinner de carga */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid white;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+/* Texto de resultado */
+.resultado-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}

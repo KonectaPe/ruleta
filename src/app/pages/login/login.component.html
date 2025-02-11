@@ -1,0 +1,49 @@
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-lg">
+    <h1 class="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
+      Sistema de sorteo
+    </h1>
+    <form
+      (ngSubmit)="login()"
+      [formGroup]="form"
+      class="mt-6 mb-0 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+    >
+      <p class="text-center text-lg font-medium">Inicia sesión</p>
+      <div>
+        <label class="sr-only" for="username">Usuario</label>
+        <div class="relative">
+          <input
+            autofocus
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs"
+            formControlName="username"
+            id="username"
+            name="username"
+            placeholder="Ingrese usuario"
+            required
+            type="text"
+          />
+        </div>
+      </div>
+      <div>
+        <label class="sr-only" for="password">Contraseña</label>
+        <div class="relative">
+          <input
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs"
+            formControlName="password"
+            id="password"
+            name="password"
+            placeholder="Ingrese contraseña"
+            required
+            type="password"
+          />
+        </div>
+      </div>
+      <button
+        class="block w-full cursor-pointer rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+        type="submit"
+      >
+        Acceder
+      </button>
+    </form>
+  </div>
+</div>
